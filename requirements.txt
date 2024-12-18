@@ -1,0 +1,8 @@
+playsound
+dlib
+opencv-contrib-python
+opencv-python
+numpy
+imutils
+scipy
+streamlit
