@@ -81,7 +81,7 @@ if uploaded_file:
         video_path = temp_video.name
 
     # Load Haar Cascade and dlib predictor
-    detector = cv2.CascadeClassifier("haarcascade_frontalface_default(1).xml")
+    detector = cv2.CascadeClassifier("haarcascade_frontalface_default%20(1).xml")
     predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
     cap = cv2.VideoCapture(video_path)
