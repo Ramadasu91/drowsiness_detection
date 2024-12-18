@@ -80,7 +80,8 @@ if uploaded_file:
         temp_video.write(uploaded_file.read())
         video_path = temp_video.name
 
-    detector = dlib.get_frontal_face_detector()
+    # Load Haar Cascade and dlib predictor
+    detector = cv2.CascadeClassifier("haarcascade_frontalface_default(1).xml")
     predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
     cap = cv2.VideoCapture(video_path)
@@ -93,9 +94,12 @@ if uploaded_file:
 
         frame = imutils.resize(frame, width=450)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        rects = detector(gray, 0)
 
-        for rect in rects:
+        rects = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30), flags=cv2.CASCADE_SCALE_IMAGE)
+
+        for (x, y, w, h) in rects:
+            rect = dlib.rectangle(int(x), int(y), int(x + w), int(y + h))
+
             shape = predictor(gray, rect)
             shape = face_utils.shape_to_np(shape)
 
